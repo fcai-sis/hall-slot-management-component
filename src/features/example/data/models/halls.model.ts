@@ -1,16 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose, { Schema } from "mongoose";
 
-const studentHallSchema = new mongoose.Schema({
+const HallSchema = new mongoose.Schema({
   name: { type: String, required: true },
   capacity: { type: Number, required: true },
-  slots: [
-    {
-      startTime: { type: String, required: true },
-      endTime: { type: String, required: true },
-    },
-  ],
 });
 
-const StudentHall = mongoose.model("StudentHall", studentHallSchema);
+const Hall = mongoose.model("Hall", HallSchema);
 
-module.exports = StudentHall;
+export default Hall;
