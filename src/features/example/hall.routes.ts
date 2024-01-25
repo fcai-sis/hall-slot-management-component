@@ -1,19 +1,20 @@
 import { Router } from "express";
 
 import asyncHandler from "../../core/asyncHandler";
-import { ValidateHallData } from "./logic/middlewares/validateHallData.middleware";
+import { validateHallData } from "./logic/middlewares/validateHallData.middleware";
 import createHallsHandler from "./logic/handlers/create.hall.handler";
 import getAllHallsHandler from "./logic/handlers/get.all.hall.handler";
 import getHallByIdHandler from "./logic/handlers/get.hall.by.id.handler";
 import updateHallByIdHandler from "./logic/handlers/update.hall.by.id.handler";
 import deleteHallByIdHandler from "./logic/handlers/delete.hall.by.id.handler";
+import { paginationQueryParamsMiddleware } from "@fcai-sis/shared-middlewares";
 
 export default (router: Router) => {
   router.post(
     "/halls",
 
     // Validate example message
-    ValidateHallData,
+    validateHallData,
 
     // Handle example request
     asyncHandler(createHallsHandler)
@@ -21,6 +22,9 @@ export default (router: Router) => {
 
   router.get(
     "/halls",
+
+    // Validate pagination query params
+    paginationQueryParamsMiddleware,
 
     // Handle example request
     asyncHandler(getAllHallsHandler)
