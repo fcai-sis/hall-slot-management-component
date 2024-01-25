@@ -9,7 +9,7 @@ export const ValidateHallData = (
 
   if (!name || !capacity) {
     return res.status(400).json({
-      message: "Bad request",
+      message: "Invalid Hall Data",
     });
   }
 
