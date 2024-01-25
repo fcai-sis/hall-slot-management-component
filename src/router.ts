@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import exampleRoutes from "./features/example/example.routes";
+import hallRoutes from "./features/example/hall.routes";
 
 const router: Router = Router();
 
 export default (): Router => {
-  exampleRoutes(router);
+  hallRoutes(router);
 
   return router;
 };
