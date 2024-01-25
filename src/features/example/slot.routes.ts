@@ -33,7 +33,7 @@ export default (router: Router) => {
     asyncHandler(getSlotByIdHandler)
   );
 
-  router.put(
+  router.patch(
     "/slots/:id",
 
     // Handle example request
