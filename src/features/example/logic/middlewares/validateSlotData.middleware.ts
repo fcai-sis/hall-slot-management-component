@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-//import * as validator from "express-validator";
+import * as validator from "express-validator";
 
 export const validateSlotData = (
   req: Request,
