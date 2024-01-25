@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import asyncHandler from "../../core/asyncHandler";
-import validateExampleMessageMiddleware from "./logic/middlewares/validateExampleMessage.middleware";
+import { ValidateHallData } from "./logic/middlewares/validateHallData.middleware";
 import createHallsHandler from "./logic/handlers/create.hall.handler";
 import getAllHallsHandler from "./logic/handlers/get.all.hall.handler";
 import getHallByIdHandler from "./logic/handlers/get.hall.by.id.handler";
@@ -13,7 +13,7 @@ export default (router: Router) => {
     "/halls",
 
     // Validate example message
-    //validateExampleMessageMiddleware,
+    ValidateHallData,
 
     // Handle example request
     asyncHandler(createHallsHandler)
