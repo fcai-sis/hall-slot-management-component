@@ -33,7 +33,7 @@ export default (router: Router) => {
     asyncHandler(getHallByIdHandler)
   );
 
-  router.put(
+  router.patch(
     "/halls/:id",
 
     // Handle example request

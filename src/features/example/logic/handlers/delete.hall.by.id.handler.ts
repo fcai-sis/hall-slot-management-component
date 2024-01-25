@@ -8,15 +8,13 @@ import Hall from "../../data/models/halls.model";
  */
 
 const handler = async (req: Request, res: Response) => {
-  try {
-    const hall = await Hall.findByIdAndDelete(req.params.id);
-    if (!hall) {
-      return res.status(404).json({ error: "Hall not found" });
-    }
-    res.status(204).end(); // 204 means no content                 Do i have to put this res.status(200).json{hall}?
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
+  const hall = await Hall.findByIdAndDelete(req.params.id);
+
+  if (!hall) {
+    return res.status(404).json({ error: "Hall not found" });
   }
+
+  res.status(204).end(); // 204 means no content
 };
 
 export default handler;

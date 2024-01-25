@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import asyncHandler from "../../core/asyncHandler";
-import { ValidateHallData } from "./logic/middlewares/validateHallData.middleware";
+import { validateSlotData } from "./logic/middlewares/validateSlotData.middleware";
 import createSlotsHandler from "./logic/handlers/create.slot.handler";
 import getAllSlotsHandler from "./logic/handlers/get.all.slot.handler";
 import getSlotByIdHandler from "./logic/handlers/get.slot.by.id.handler";
@@ -13,7 +13,7 @@ export default (router: Router) => {
     "/slots",
 
     // Validate example message
-    ValidateHallData,
+    validateSlotData,
 
     // Handle example request
     asyncHandler(createSlotsHandler)
