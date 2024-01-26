@@ -7,6 +7,7 @@ import getAllSlotsHandler from "./logic/handlers/get.all.slot.handler";
 import getSlotByIdHandler from "./logic/handlers/get.slot.by.id.handler";
 import UpdateSlotByIdHandler from "./logic/handlers/update.slot.by.id.handler";
 import deleteSlotByIdHandler from "./logic/handlers/delete.slot.by.id.handler";
+import { paginationQueryParamsMiddleware } from "@fcai-sis/shared-middlewares";
 
 export default (router: Router) => {
   router.post(
@@ -21,6 +22,9 @@ export default (router: Router) => {
 
   router.get(
     "/slots",
+
+    // Validate pagination query params
+    paginationQueryParamsMiddleware,
 
     // Handle example request
     asyncHandler(getAllSlotsHandler)

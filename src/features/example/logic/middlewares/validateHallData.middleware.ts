@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-//import * as validator from "express-validator";
+import * as validator from "express-validator";
 
-export const ValidateHallData = (
+export const validateHallData = (
   req: Request,
   res: Response,
   next: NextFunction
