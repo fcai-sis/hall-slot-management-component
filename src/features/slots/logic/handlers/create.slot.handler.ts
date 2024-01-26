@@ -5,7 +5,11 @@ import Slot from "../../data/models/slot.model";
  * A handler that creates a new hall document in the database
  */
 
-//type handlerRequest = Request<{}, {}, {startTime: String , endTime: String , Day: String }>;
+type HandlerRequest = Request<
+  {},
+  {},
+  { startTime: String; endTime: String; Day: String }
+>;
 
 const handler = async (req: Request, res: Response) => {
   const slot = await Slot.create(req.body);
