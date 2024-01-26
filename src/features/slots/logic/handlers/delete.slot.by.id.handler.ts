@@ -1,7 +1,7 @@
 // logic for deleting a hall from the database
 
 import { Request, Response } from "express";
-import Slot from "../../data/models/halls.model";
+import Slot from "../../data/models/slot.model";
 
 /**
  * A handler that deletes a hall document from the database

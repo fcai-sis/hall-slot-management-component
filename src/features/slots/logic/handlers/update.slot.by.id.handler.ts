@@ -1,7 +1,7 @@
 // logic for updating a hall in the database
 
 import { Request, Response } from "express";
-import Slot from "../../data/models/halls.model";
+import Slot from "../../data/models/slot.model";
 
 /**
  * A handler that updates a hall document in the database

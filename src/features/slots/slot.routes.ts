@@ -1,13 +1,13 @@
 import { Router } from "express";
 
 import asyncHandler from "../../core/asyncHandler";
-import { validateSlotData } from "./logic/middlewares/validateSlotData.middleware";
 import createSlotsHandler from "./logic/handlers/create.slot.handler";
 import getAllSlotsHandler from "./logic/handlers/get.all.slot.handler";
 import getSlotByIdHandler from "./logic/handlers/get.slot.by.id.handler";
 import UpdateSlotByIdHandler from "./logic/handlers/update.slot.by.id.handler";
 import deleteSlotByIdHandler from "./logic/handlers/delete.slot.by.id.handler";
 import { paginationQueryParamsMiddleware } from "@fcai-sis/shared-middlewares";
+import { validateSlotData } from "./logic/middlewares/validateSlotData.middleware";
 
 export default (router: Router) => {
   router.post(

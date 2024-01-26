@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Slot from "../../data/models/halls.model";
+import Slot from "../../data/models/slot.model";
 
 /**
  * A handler that creates a new hall document in the database
