@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import asyncHandler from "../../core/asyncHandler";
 import { validateHallData } from "./logic/middlewares/validateHallData.middleware";
+import { asyncHandler } from "@fcai-sis/shared-utilities";
 import createHallsHandler from "./logic/handlers/create.hall.handler";
 import getAllHallsHandler from "./logic/handlers/get.all.hall.handler";
 import getHallByIdHandler from "./logic/handlers/get.hall.by.id.handler";

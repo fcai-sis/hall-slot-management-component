@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import asyncHandler from "../../core/asyncHandler";
+import { asyncHandler } from "@fcai-sis/shared-utilities";
 import createSlotsHandler from "./logic/handlers/create.slot.handler";
 import getAllSlotsHandler from "./logic/handlers/get.all.slot.handler";
 import getSlotByIdHandler from "./logic/handlers/get.slot.by.id.handler";
