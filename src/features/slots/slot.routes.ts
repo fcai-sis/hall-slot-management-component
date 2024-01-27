@@ -7,7 +7,10 @@ import getSlotByIdHandler from "./logic/handlers/get.slot.by.id.handler";
 import { paginationQueryParamsMiddleware } from "@fcai-sis/shared-middlewares";
 import updateSlotByIdHandler from "./logic/handlers/update.slot.by.id.handler";
 import deleteSlotByIdHandler from "./logic/handlers/delete.slot.by.id.handler";
-import { validateSlotData } from "./logic/middlewares/validateSlotData.middleware";
+import validateSlotData from "./logic/middlewares/validateSlotData.middleware";
+import ensureSlotIdInParamsMiddleware from "./logic/middlewares/EnsureSlotidparam.middleware";
+import updateSlotValidator from "./logic/middlewares/UpdateSlotValidations.middleware";
+import createSlotValidator from "./logic/middlewares/validateCreateSlotRequestBody.middleware";
 
 export default (router: Router) => {
   /*
@@ -17,7 +20,8 @@ export default (router: Router) => {
     "/slots",
 
     // Validate example message
-    validateSlotData,
+
+    createSlotValidator,
 
     // Handle example request
     asyncHandler(createSlotsHandler)
@@ -42,6 +46,8 @@ export default (router: Router) => {
   router.get(
     "/slots/:id",
 
+    ensureSlotIdInParamsMiddleware,
+
     // Handle example request
     asyncHandler(getSlotByIdHandler)
   );
@@ -52,6 +58,10 @@ export default (router: Router) => {
   router.patch(
     "/slots/:id",
 
+    ensureSlotIdInParamsMiddleware,
+
+    updateSlotValidator,
+
     // Handle example request
     asyncHandler(updateSlotByIdHandler)
   );
@@ -61,6 +71,8 @@ export default (router: Router) => {
    **/
   router.delete(
     "/slots/:id",
+
+    ensureSlotIdInParamsMiddleware,
 
     // Handle example request
     asyncHandler(deleteSlotByIdHandler)
