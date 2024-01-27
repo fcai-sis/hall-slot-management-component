@@ -17,7 +17,7 @@ const handler = async (req: HandlerRequest, res: Response) => {
   }
 
   // Werid the message is not showing
-  res.status(204).json({ message: "Hall Deleted successfully" }); // 204 means no content
+  res.status(200).json({ message: "Hall Deleted successfully" }); // 204 means no content
 };
 
 export default handler;
