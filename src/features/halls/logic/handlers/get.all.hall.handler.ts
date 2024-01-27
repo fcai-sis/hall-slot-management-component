@@ -7,18 +7,11 @@ import Hall from "../../data/models/halls.model";
  * A handler that creates a new hall document in the database
  */
 
-type HandlerRequest = Request<
-  {},
-  {},
-  {
-    page: number;
-    pageSize: number;
-  }
->;
+type HandlerRequest = Request;
 
 const handler = async (req: HandlerRequest, res: Response) => {
-  const page = req.body.page;
-  const pageSize = req.body.pageSize;
+  const page = req.context.page;
+  const pageSize = req.context.pageSize;
 
   const halls = await Hall.find()
     .skip((page - 1) * pageSize)
