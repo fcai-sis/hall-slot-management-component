@@ -3,7 +3,7 @@ import { param, validationResult } from "express-validator";
 
 const middlewares = [
   // Validation middleware using express-validator for hallId
-  param("hallId")
+  param("id")
     .exists()
     .withMessage("Hall ID is required")
     .isMongoId()
@@ -22,7 +22,7 @@ const middlewares = [
     }
 
     // Trim the hallId if needed
-    req.params.hallId = req.params.hallId.trim();
+    req.params.id = req.params.id.trim();
 
     // Proceed to the next middleware or route handler
     next();

@@ -14,7 +14,7 @@ type HandlerRequest = Request<
   }
 >;
 
-const handler = async (req: Request, res: Response) => {
+const handler = async (req: HandlerRequest, res: Response) => {
   const page = req.body.page;
   const pageSize = req.body.pageSize;
 

@@ -7,7 +7,9 @@ import Hall from "../../data/models/halls.model";
  * A handler that creates a new hall document in the database
  */
 
-const handler = async (req: Request, res: Response) => {
+type HandlerRequest = Request<{ id: string }>;
+
+const handler = async (req: HandlerRequest, res: Response) => {
   const hall = await Hall.findById(req.params.id);
 
   if (!hall) {

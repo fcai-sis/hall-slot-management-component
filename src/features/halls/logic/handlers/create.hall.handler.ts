@@ -7,8 +7,10 @@ import Hall from "../../data/models/halls.model";
 
 type HandlerRequest = Request<{}, {}, { name: string; capacity: number }>;
 
-const handler = async (req: Request, res: Response) => {
-  const hall = await Hall.create(req.body);
+const handler = async (req: HandlerRequest, res: Response) => {
+  const { name, capacity } = req.body;
+
+  const hall = await Hall.create({ name, capacity });
   res.status(201).json({ hall });
 };
 

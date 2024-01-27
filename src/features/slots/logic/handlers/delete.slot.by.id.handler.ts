@@ -7,14 +7,16 @@ import Slot from "../../data/models/slot.model";
  * A handler that deletes a hall document from the database
  */
 
-const handler = async (req: Request, res: Response) => {
+type HandlerRequest = Request<{ id: string }>;
+
+const handler = async (req: HandlerRequest, res: Response) => {
   const slot = await Slot.findByIdAndDelete(req.params.id);
 
   if (!slot) {
     return res.status(404).json({ error: "Slot not found" });
   }
 
-  res.status(204).end(); // 204 means no content
+  res.status(204).json({ message: "Slot Deleted successfully " }); // 204 means no content
 };
 
 export default handler;

@@ -7,12 +7,22 @@ import Slot from "../../data/models/slot.model";
  * A handler that updates a hall document in the database
  */
 
-//type handlerRequest = Request<{}, {}, { name: string; capacity: number }>;
+type HandlerRequest = Request<
+  { id: string },
+  {},
+  { startTime: string; endTime: string; day: string }
+>;
 
-const handler = async (req: Request, res: Response) => {
-  const slot = await Slot.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+const handler = async (req: HandlerRequest, res: Response) => {
+  const { startTime, endTime, day } = req.body;
+
+  const slot = await Slot.findByIdAndUpdate(
+    req.params.id,
+    { startTime, endTime, day }, // Need to check that its not gonna override the whole document
+    {
+      new: true,
+    }
+  );
 
   if (!slot) {
     return res.status(404).json({ message: "Slot not found" });

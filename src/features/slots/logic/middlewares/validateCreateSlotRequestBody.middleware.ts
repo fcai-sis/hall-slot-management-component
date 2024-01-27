@@ -3,7 +3,7 @@ import { body, validationResult } from "express-validator";
 
 import logger from "../../../../core/logger";
 
-export const createSlotValidator = [
+const middlewares = [
   body("startTime")
     .exists()
     .isISO8601()
@@ -35,3 +35,6 @@ export const createSlotValidator = [
     next();
   },
 ];
+
+const createSlotValidator = middlewares;
+export default createSlotValidator;

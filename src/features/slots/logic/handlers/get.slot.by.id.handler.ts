@@ -5,6 +5,8 @@ import Slot from "../../data/models/slot.model";
  * A handler that creates a new hall document in the database
  */
 
+type HandlerRequest = Request<{ id: string }>;
+
 const handler = async (req: Request, res: Response) => {
   const slot = await Slot.findById(req.params.id);
 

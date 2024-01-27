@@ -8,11 +8,13 @@ import Slot from "../../data/models/slot.model";
 type HandlerRequest = Request<
   {},
   {},
-  { startTime: String; endTime: String; Day: String }
+  { startTime: string; endTime: string; day: string }
 >;
 
-const handler = async (req: Request, res: Response) => {
-  const slot = await Slot.create(req.body);
+const handler = async (req: HandlerRequest, res: Response) => {
+  const { startTime, endTime, day } = req.body;
+
+  const slot = await Slot.create({ startTime, endTime, day });
   res.status(201).json({ slot });
 };
 

@@ -3,7 +3,7 @@ import { body, validationResult } from "express-validator";
 
 import logger from "../../../../core/logger";
 
-const updateHallValidator = [
+const middlewares = [
   body("name").optional().isString().withMessage("Name must be a string"),
   body("capacity")
     .optional()
@@ -50,4 +50,5 @@ const updateHallValidator = [
   },
 ];
 
+const updateHallValidator = middlewares;
 export default updateHallValidator;
