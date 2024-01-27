@@ -7,7 +7,7 @@ import Slot from "../../data/models/slot.model";
 
 type HandlerRequest = Request<{ id: string }>;
 
-const handler = async (req: Request, res: Response) => {
+const handler = async (req: HandlerRequest, res: Response) => {
   const slot = await Slot.findById(req.params.id);
 
   if (!slot) {

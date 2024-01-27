@@ -1,3 +1,5 @@
+// This Page is garbage, it is not used in the project
+
 import { NextFunction, Request, Response } from "express";
 import * as validator from "express-validator";
 import { body, validationResult } from "express-validator";
