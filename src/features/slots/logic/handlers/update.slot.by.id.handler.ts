@@ -10,7 +10,17 @@ import Slot from "../../data/models/slot.model";
 type HandlerRequest = Request<
   { id: string },
   {},
-  { startTime: string; endTime: string; day: string }
+  {
+    startTime: {
+      hour: number;
+      minute: number;
+    };
+    endTime: {
+      hour: number;
+      minute: number;
+    };
+    day: number;
+  }
 >;
 
 const handler = async (req: HandlerRequest, res: Response) => {
