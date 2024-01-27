@@ -1,30 +1,44 @@
 import { NextFunction, Request, Response } from "express";
 import * as validator from "express-validator";
+import { body, validationResult } from "express-validator";
 
-export const validateSlotData = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const { startTime, endTime } = req.body;
+import logger from "../../../../core/logger";
 
-  // Validate that startTime and endTime are present and in a valid format
-  if (
-    !startTime ||
-    !endTime ||
-    !isValidTimeFormat(startTime) ||
-    !isValidTimeFormat(endTime)
-  ) {
-    return res.status(400).json({ message: "Invalid slot data" });
-  }
+const middlewares = [
+  // Validation middleware using express-validator for slotId
+  body("startTime")
+    .exists()
+    .withMessage("startTime is required")
+    .isISO8601()
+    .withMessage("startTime must be a valid formatDate"),
 
-  // You can add more specific validation rules based on your requirements
+  body("endTime")
+    .exists()
+    .withMessage("endTime is required")
+    .isISO8601()
+    .withMessage("endTime must be a valid formatDate"),
 
-  next();
-};
+  // Middleware to handle validation errors
+  (req: Request, res: Response, next: NextFunction) => {
+    logger.debug(`Validating slotId parameter: ${req.params.slotId}`);
 
-// Helper function to validate time format (HH:mm)
-const isValidTimeFormat = (time: string): boolean => {
-  const timeRegex = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
-  return timeRegex.test(time);
-};
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      logger.debug(
+        `Invalid slotId parameter provided ${JSON.stringify(errors.array())}`
+      );
+      return res.status(400).json({
+        error: {
+          message: errors.array()[0].msg,
+        },
+      });
+    }
+
+    // If needed, you can perform additional validations or modifications here
+
+    next();
+  },
+];
+
+const validateSlotData = middlewares;
+export default validateSlotData;
