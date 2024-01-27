@@ -50,5 +50,5 @@ const middlewares = [
   },
 ];
 
-const validateCreateHallRequestBodyMiddleware = middlewares;
-export default validateCreateHallRequestBodyMiddleware;
+const validateCreateHall = middlewares;
+export default validateCreateHall;
