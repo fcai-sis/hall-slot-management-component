@@ -7,7 +7,10 @@ import getHallByIdHandler from "./logic/handlers/get.hall.by.id.handler";
 import { paginationQueryParamsMiddleware } from "@fcai-sis/shared-middlewares";
 import updateHallByIdHandler from "./logic/handlers/update.hall.by.id.handler";
 import deleteHallByIdHandler from "./logic/handlers/delete.hall.by.id.handler";
-import { validateHallData } from "./logic/middlewares/validateHallData.middleware";
+import validateHallData from "./logic/middlewares/validateHallData.middleware";
+import ensureHallIdInParamsMiddleware from "./logic/middlewares/EnsureHallidparam.middleware";
+import updateHallValidator from "./logic/middlewares/UpdateHallValidations.middleware";
+import validateCreateHall from "./logic/middlewares/validateCreateHallRequestBody.middleware";
 
 export default (router: Router) => {
   /*
@@ -16,7 +19,7 @@ export default (router: Router) => {
   router.post(
     "/halls",
 
-    validateHallData,
+    validateCreateHall,
 
     asyncHandler(createHallsHandler)
   );
@@ -40,6 +43,7 @@ export default (router: Router) => {
   router.get(
     "/halls/:id",
 
+    ensureHallIdInParamsMiddleware,
     // Handle example request
     asyncHandler(getHallByIdHandler)
   );
@@ -50,6 +54,10 @@ export default (router: Router) => {
   router.patch(
     "/halls/:id",
 
+    ensureHallIdInParamsMiddleware,
+
+    updateHallValidator,
+
     // Handle example request
     asyncHandler(updateHallByIdHandler)
   );
@@ -59,6 +67,8 @@ export default (router: Router) => {
    **/
   router.delete(
     "/halls/:id",
+
+    ensureHallIdInParamsMiddleware,
 
     // Handle example request
     asyncHandler(deleteHallByIdHandler)
