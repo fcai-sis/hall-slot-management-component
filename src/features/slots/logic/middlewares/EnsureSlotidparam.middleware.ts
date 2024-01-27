@@ -3,9 +3,9 @@ import { param, validationResult } from "express-validator";
 
 import logger from "../../../../core/logger";
 
-export const ensureSlotIdInParamsMiddleware = [
+const middlewares = [
   // Validation middleware using express-validator for slotId
-  param("slotId")
+  param("id")
     .exists()
     .withMessage("Slot ID is required")
     .isMongoId()
@@ -13,7 +13,7 @@ export const ensureSlotIdInParamsMiddleware = [
 
   // Middleware to handle validation errors
   (req: Request, res: Response, next: NextFunction) => {
-    logger.debug(`Validating slotId parameter: ${req.params.slotId}`);
+    logger.debug(`Validating slotId parameter: ${req.params.id}`);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -32,3 +32,6 @@ export const ensureSlotIdInParamsMiddleware = [
     next();
   },
 ];
+
+const ensureSlotIdInParamsMiddleware = middlewares;
+export default ensureSlotIdInParamsMiddleware;
