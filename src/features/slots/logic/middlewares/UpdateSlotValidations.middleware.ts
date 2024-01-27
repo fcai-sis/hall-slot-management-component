@@ -6,11 +6,44 @@ import logger from "../../../../core/logger";
 const middlewares = [
   body("startTime")
     .optional()
-    .isISO8601()
-    .withMessage("Invalid startTime format"),
-  body("endTime").optional().isISO8601().withMessage("Invalid endTime format"),
-  body("day").optional().isString().withMessage("Day must be a string"),
+    .isObject()
+    .withMessage("startTime must be an object")
+    .custom((startTime) => {
+      if (startTime.hour) {
+        if (startTime.hour < 0 || startTime.hour > 23) {
+          throw new Error("startTime.hour must be a number between 0 and 23");
+        }
+      }
+      if (startTime.minute) {
+        if (startTime.minute < 0 || startTime.minute > 59) {
+          throw new Error("startTime.minute must be a number between 0 and 59");
+        }
+      }
+      return true;
+    }),
+  body("endTime")
+    .optional()
+    .isObject()
+    .withMessage("endTime must be an object")
+    .custom((endTime) => {
+      if (endTime.hour) {
+        if (endTime.hour < 0 || endTime.hour > 23) {
+          throw new Error("endTime.hour must be a number between 0 and 23");
+        }
+      }
+      if (endTime.minute) {
+        if (endTime.minute < 0 || endTime.minute > 59) {
+          throw new Error("endTime.minute must be a number between 0 and 59");
+        }
+      }
+      return true;
+    }),
+  body("day")
+    .optional()
+    .isInt({ min: 0, max: 6 })
+    .withMessage("day must be a number between 0 and 6"),
 
+  //TODO:We need to check if this logic is right
   (req: Request, res: Response, next: NextFunction) => {
     logger.debug(
       `Validating update slot req body: ${JSON.stringify(req.body)}`
