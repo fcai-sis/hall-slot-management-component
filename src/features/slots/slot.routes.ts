@@ -7,7 +7,6 @@ import getSlotByIdHandler from "./logic/handlers/get.slot.by.id.handler";
 import { paginationQueryParamsMiddleware } from "@fcai-sis/shared-middlewares";
 import updateSlotByIdHandler from "./logic/handlers/update.slot.by.id.handler";
 import deleteSlotByIdHandler from "./logic/handlers/delete.slot.by.id.handler";
-import validateSlotData from "./logic/middlewares/validateSlotData.middleware";
 import ensureSlotIdInParamsMiddleware from "./logic/middlewares/EnsureSlotidparam.middleware";
 import updateSlotValidator from "./logic/middlewares/UpdateSlotValidations.middleware";
 import createSlotValidator from "./logic/middlewares/validateCreateSlotRequestBody.middleware";
