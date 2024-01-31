@@ -9,16 +9,21 @@ const middlewares = [
     .isObject()
     .withMessage("startTime must be an object")
     .custom((startTime) => {
-      if (startTime.hour) {
-        if (startTime.hour < 0 || startTime.hour > 23) {
-          throw new Error("startTime.hour must be a number between 0 and 23");
-        }
+      if (typeof startTime.hour !== "number") {
+        throw new Error("startTime.hour must be a number");
       }
-      if (startTime.minute) {
-        if (startTime.minute < 0 || startTime.minute > 59) {
-          throw new Error("startTime.minute must be a number between 0 and 59");
-        }
+      if (typeof startTime.minute !== "number") {
+        throw new Error("startTime.minute must be a number");
       }
+
+      if (startTime.hour < 0 || startTime.hour > 23) {
+        throw new Error("startTime.hour must be a number between 0 and 23");
+      }
+
+      if (startTime.minute < 0 || startTime.minute > 59) {
+        throw new Error("startTime.minute must be a number between 0 and 59");
+      }
+
       return true;
     }),
   body("endTime")
@@ -26,16 +31,21 @@ const middlewares = [
     .isObject()
     .withMessage("endTime must be an object")
     .custom((endTime) => {
-      if (endTime.hour) {
-        if (endTime.hour < 0 || endTime.hour > 23) {
-          throw new Error("endTime.hour must be a number between 0 and 23");
-        }
+      if (typeof endTime.hour !== "number") {
+        throw new Error("endTime.hour must be a number");
       }
-      if (endTime.minute) {
-        if (endTime.minute < 0 || endTime.minute > 59) {
-          throw new Error("endTime.minute must be a number between 0 and 59");
-        }
+      if (typeof endTime.minute !== "number") {
+        throw new Error("endTime.minute must be a number");
       }
+
+      if (endTime.hour < 0 || endTime.hour > 23) {
+        throw new Error("endTime.hour must be a number between 0 and 23");
+      }
+
+      if (endTime.minute < 0 || endTime.minute > 59) {
+        throw new Error("endTime.minute must be a number between 0 and 59");
+      }
+
       return true;
     }),
   body("day")

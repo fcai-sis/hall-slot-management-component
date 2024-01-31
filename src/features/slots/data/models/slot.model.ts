@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { InferSchemaType } from "mongoose";
 
 const slotSchema = new mongoose.Schema({
   startTime: {
@@ -12,6 +12,9 @@ const slotSchema = new mongoose.Schema({
   day: { type: Number, required: true, min: 0, max: 6 },
 });
 
-const Slot = mongoose.model("Slot", slotSchema);
+export type SlotType = InferSchemaType<typeof slotSchema>;
+export const slotModelName = "Slot";
+
+const Slot = mongoose.model(slotModelName, slotSchema);
 
 export default Slot;

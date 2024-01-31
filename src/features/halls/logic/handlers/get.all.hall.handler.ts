@@ -16,7 +16,14 @@ const handler = async (req: HandlerRequest, res: Response) => {
   const halls = await Hall.find()
     .skip((page - 1) * pageSize)
     .limit(pageSize);
-  res.status(200).json({ halls });
+
+  return res.status(200).send({
+    halls: halls.map((hall) => ({
+      _id: hall._id,
+      name: hall.name,
+      capacity: hall.capacity,
+    })),
+  });
 };
 
 export default handler;

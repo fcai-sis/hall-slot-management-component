@@ -25,10 +25,20 @@ const handler = async (req: HandlerRequest, res: Response) => {
   );
 
   if (!hall) {
-    return res.status(404).json({ message: "Hall not found" });
+    return res.status(404).send({
+      error: {
+        message: "Hall not found",
+      },
+    });
   }
 
-  res.status(200).json({ hall });
+  return res.status(200).send({
+    hall: {
+      _id: hall._id,
+      name: hall.name,
+      capacity: hall.capacity,
+    },
+  });
 };
 
 export default handler;

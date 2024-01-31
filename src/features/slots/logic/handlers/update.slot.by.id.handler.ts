@@ -1,10 +1,10 @@
-// logic for updating a hall in the database
+// logic for updating a slot in the database
 
 import { Request, Response } from "express";
 import Slot from "../../data/models/slot.model";
 
 /**
- * A handler that updates a hall document in the database
+ * A handler that updates a slot document in the database
  */
 
 type HandlerRequest = Request<
@@ -35,10 +35,21 @@ const handler = async (req: HandlerRequest, res: Response) => {
   );
 
   if (!slot) {
-    return res.status(404).json({ message: "Slot not found" });
+    return res.status(404).json({
+      error: {
+        message: "Slot not found",
+      },
+    });
   }
 
-  res.status(200).json({ slot });
+  return res.status(200).send({
+    slot: {
+      _id: slot._id,
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+      day: slot.day,
+    },
+  });
 };
 
 export default handler;

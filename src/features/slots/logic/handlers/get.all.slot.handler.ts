@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Slot from "../../data/models/slot.model";
 
 /**
- * A handler that creates a new hall document in the database
+ * A handler that creates a new slot document in the database
  */
 
 type HandlerRequest = Request;
@@ -14,7 +14,15 @@ const handler = async (req: HandlerRequest, res: Response) => {
   const slots = await Slot.find()
     .skip((page - 1) * pageSize)
     .limit(pageSize);
-  res.status(200).json({ slots });
+
+  return res.status(200).send({
+    slots: slots.map((slot) => ({
+      _id: slot._id,
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+      day: slot.day,
+    })),
+  });
 };
 
 export default handler;

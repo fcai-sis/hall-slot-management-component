@@ -11,7 +11,16 @@ const handler = async (req: HandlerRequest, res: Response) => {
   const { name, capacity } = req.body;
 
   const hall = await Hall.create({ name, capacity });
-  res.status(201).json({ hall });
+
+  const response = {
+    hall: {
+      _id: hall._id,
+      name: hall.name,
+      capacity: hall.capacity,
+    },
+  };
+
+  return res.status(201).json(response);
 };
 
 export default handler;

@@ -13,11 +13,15 @@ const handler = async (req: HandlerRequest, res: Response) => {
   const hall = await Hall.findByIdAndDelete(req.params.id);
 
   if (!hall) {
-    return res.status(404).json({ error: "Hall not found" });
+    return res.status(404).send({
+      error: {
+        message: "Hall not found",
+      },
+    });
   }
 
   // Werid the message is not showing
-  res.status(200).json({ message: "Hall Deleted successfully" }); // 204 means no content
+  return res.status(200).send({ message: "Hall Deleted successfully" }); // 204 means no content
 };
 
 export default handler;

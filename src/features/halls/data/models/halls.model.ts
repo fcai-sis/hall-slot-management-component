@@ -1,10 +1,12 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { InferSchemaType } from "mongoose";
 
 const HallSchema = new mongoose.Schema({
   name: { type: String, required: true },
   capacity: { type: Number, required: true },
 });
 
-const Hall = mongoose.model("Hall", HallSchema);
+export type HallType = InferSchemaType<typeof HallSchema>;
+export const hallModelName = "Hall";
+const Hall = mongoose.model(hallModelName, HallSchema);
 
 export default Hall;

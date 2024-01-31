@@ -13,10 +13,20 @@ const handler = async (req: HandlerRequest, res: Response) => {
   const hall = await Hall.findById(req.params.id);
 
   if (!hall) {
-    return res.status(404).json({ error: "Hall not found" });
+    return res.status(404).json({
+      error: {
+        message: "Hall not found",
+      },
+    });
   }
 
-  res.status(200).json({ hall });
+  return res.status(200).send({
+    hall: {
+      _id: hall._id,
+      name: hall.name,
+      capacity: hall.capacity,
+    },
+  });
 };
 
 export default handler;

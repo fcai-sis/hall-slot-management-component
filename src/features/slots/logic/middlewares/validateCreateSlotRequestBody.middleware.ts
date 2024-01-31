@@ -16,6 +16,12 @@ const middlewares = [
       if (!startTime.minute) {
         throw new Error("startTime.minute is required");
       }
+      if (typeof startTime.hour !== "number") {
+        throw new Error("startTime.hour must be a number");
+      }
+      if (typeof startTime.minute !== "number") {
+        throw new Error("startTime.minute must be a number");
+      }
       if (startTime.hour < 0 || startTime.hour > 23) {
         throw new Error("startTime.hour must be a number between 0 and 23");
       }
@@ -36,6 +42,12 @@ const middlewares = [
       }
       if (!endTime.minute) {
         throw new Error("endTime.minute is required");
+      }
+      if (typeof endTime.hour !== "number") {
+        throw new Error("endTime.hour must be a number");
+      }
+      if (typeof endTime.minute !== "number") {
+        throw new Error("endTime.minute must be a number");
       }
       if (endTime.hour < 0 || endTime.hour > 23) {
         throw new Error("endTime.hour must be a number between 0 and 23");
