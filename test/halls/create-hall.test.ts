@@ -34,7 +34,7 @@ describe("POST /halls", () => {
 
     beforeAll(async () => {
       // Clear the database before all tests
-      database.clear();
+      await database.clear();
       // Send a POST request with the valid request body
       response = await request.post("/halls").send(validRequestBody);
       // Ensure that it was created in the database
@@ -81,7 +81,7 @@ describe("POST /halls", () => {
 
       beforeAll(async () => {
         // Clear the database before all tests
-        database.clear();
+        await database.clear();
         // Send a POST request with the invalid request body
         response = await request.post("/halls").send(invalidRequestBody);
       });
@@ -110,7 +110,7 @@ describe("POST /halls", () => {
 
       beforeAll(async () => {
         // Clear the database before all tests
-        database.clear();
+        await database.clear();
         // Send a POST request with the invalid request body
         response = await request.post("/halls").send(invalidRequestBody);
       });
@@ -138,7 +138,7 @@ describe("POST /halls", () => {
 
       beforeAll(async () => {
         // Clear the database before all tests
-        database.clear();
+        await database.clear();
         // Send a POST request with the invalid request body
         response = await request.post("/halls").send(invalidRequestBody);
       });
@@ -167,7 +167,7 @@ describe("POST /halls", () => {
 
       beforeAll(async () => {
         // Clear the database before all tests
-        database.clear();
+        await database.clear();
         // Send a POST request with the invalid request body
         response = await request.post("/halls").send(invalidRequestBody);
       });
