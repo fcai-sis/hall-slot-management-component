@@ -12,12 +12,12 @@ import ensureHallIdInParamsMiddleware from "./logic/middlewares/EnsureHallidpara
 import updateHallValidator from "./logic/middlewares/UpdateHallValidations.middleware";
 import validateCreateHall from "./logic/middlewares/validateCreateHallRequestBody.middleware";
 
-export default (router: Router) => {
+const hallsRoutes = (router: Router) => {
   /*
    * Create new hall
    **/
   router.post(
-    "/halls",
+    "/create",
 
     validateCreateHall,
 
@@ -28,7 +28,7 @@ export default (router: Router) => {
    * Get all halls
    **/
   router.get(
-    "/halls",
+    "/read",
 
     // Validate pagination query params
     paginationQueryParamsMiddleware,
@@ -74,3 +74,5 @@ export default (router: Router) => {
     asyncHandler(deleteHallByIdHandler)
   );
 };
+
+export default hallsRoutes;

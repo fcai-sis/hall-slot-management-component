@@ -1,13 +1,16 @@
 import { Router } from "express";
 
-import hallRoutes from "./features/halls/hall.routes";
-import slotRoutes from "./features/slots/slot.routes";
+import hallsRoutes from "./features/halls/hall.routes";
+import slotsRoutes from "./features/slots/slot.routes";
 
-const router: Router = Router();
+export const hallsRouter = (): Router => {
+  const router = Router();
+  hallsRoutes(router);
+  return router;
+};
 
-export default (): Router => {
-  hallRoutes(router);
-  slotRoutes(router);
-
+export const slotsRouter = (): Router => {
+  const router = Router();
+  slotsRoutes(router);
   return router;
 };

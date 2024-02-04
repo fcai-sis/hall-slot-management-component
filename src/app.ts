@@ -4,9 +4,9 @@ import helmet from "helmet";
 import compression from "compression";
 import express, { NextFunction, Request, Response } from "express";
 
-import router from "./router";
 import { isDev } from "./env";
 import logger from "./core/logger";
+import { hallsRouter, slotsRouter } from "./router";
 
 // Create Express server
 const app = express();
@@ -45,8 +45,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Mount API routes
-app.use("/", router());
+// Mount API routers
+app.use("/halls", hallsRouter());
+app.use("/slots", slotsRouter());
 
 // TODO: Custom 404 handler
 app.use((req: Request, res: Response, next: NextFunction) => {

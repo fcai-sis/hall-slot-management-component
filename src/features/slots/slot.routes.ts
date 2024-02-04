@@ -11,12 +11,12 @@ import ensureSlotIdInParamsMiddleware from "./logic/middlewares/EnsureSlotidpara
 import updateSlotValidator from "./logic/middlewares/UpdateSlotValidations.middleware";
 import createSlotValidator from "./logic/middlewares/validateCreateSlotRequestBody.middleware";
 
-export default (router: Router) => {
+const slotsRoutes = (router: Router) => {
   /*
    * Create new slot
    **/
   router.post(
-    "/slots",
+    "/create",
 
     // Validate example message
 
@@ -77,3 +77,5 @@ export default (router: Router) => {
     asyncHandler(deleteSlotByIdHandler)
   );
 };
+
+export default slotsRoutes;
