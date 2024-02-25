@@ -10,10 +10,10 @@ const middlewares = [
     .isObject()
     .withMessage("startTime must be an object")
     .custom((startTime) => {
-      if (!startTime.hour) {
+      if (startTime.hour == null) {
         throw new Error("startTime.hour is required");
       }
-      if (!startTime.minute) {
+      if (startTime.minute == null) {
         throw new Error("startTime.minute is required");
       }
       if (typeof startTime.hour !== "number") {
@@ -37,10 +37,10 @@ const middlewares = [
     .isObject()
     .withMessage("endTime must be an object")
     .custom((endTime) => {
-      if (!endTime.hour) {
+      if (endTime.hour == null) {
         throw new Error("endTime.hour is required");
       }
-      if (!endTime.minute) {
+      if (endTime.minute == null) {
         throw new Error("endTime.minute is required");
       }
       if (typeof endTime.hour !== "number") {
