@@ -1,7 +1,7 @@
 // logic for deleting a hall from the database
 
+import { HallModel } from "@fcai-sis/shared-models";
 import { Request, Response } from "express";
-import Hall from "../../data/models/halls.model";
 
 /**
  * A handler that deletes a hall document from the database
@@ -10,7 +10,7 @@ import Hall from "../../data/models/halls.model";
 type HandlerRequest = Request<{ id: string }>;
 
 const handler = async (req: HandlerRequest, res: Response) => {
-  const hall = await Hall.findByIdAndDelete(req.params.id);
+  const hall = await HallModel.findByIdAndDelete(req.params.id);
 
   if (!hall) {
     return res.status(404).send({

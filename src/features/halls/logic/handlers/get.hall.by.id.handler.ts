@@ -1,7 +1,7 @@
 // logic for getting hall by id from the database
 
 import { Request, Response } from "express";
-import Hall from "../../data/models/halls.model";
+import { HallModel } from "@fcai-sis/shared-models";
 
 /**
  * A handler that creates a new hall document in the database
@@ -10,7 +10,7 @@ import Hall from "../../data/models/halls.model";
 type HandlerRequest = Request<{ id: string }>;
 
 const handler = async (req: HandlerRequest, res: Response) => {
-  const hall = await Hall.findById(req.params.id);
+  const hall = await HallModel.findById(req.params.id);
 
   if (!hall) {
     return res.status(404).json({

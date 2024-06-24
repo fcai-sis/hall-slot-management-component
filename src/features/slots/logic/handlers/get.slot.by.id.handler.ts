@@ -1,5 +1,5 @@
+import { SlotModel } from "@fcai-sis/shared-models";
 import { Request, Response } from "express";
-import Slot from "../../data/models/slot.model";
 
 /**
  * A handler that creates a new slot document in the database
@@ -8,7 +8,7 @@ import Slot from "../../data/models/slot.model";
 type HandlerRequest = Request<{ id: string }>;
 
 const handler = async (req: HandlerRequest, res: Response) => {
-  const slot = await Slot.findById(req.params.id);
+  const slot = await SlotModel.findById(req.params.id);
 
   if (!slot) {
     return res.status(404).json({

@@ -1,7 +1,7 @@
 // logic for updating a slot in the database
 
+import { SlotModel } from "@fcai-sis/shared-models";
 import { Request, Response } from "express";
-import Slot from "../../data/models/slot.model";
 
 /**
  * A handler that updates a slot document in the database
@@ -26,7 +26,7 @@ type HandlerRequest = Request<
 const handler = async (req: HandlerRequest, res: Response) => {
   const { startTime, endTime, day } = req.body;
 
-  const slot = await Slot.findByIdAndUpdate(
+  const slot = await SlotModel.findByIdAndUpdate(
     req.params.id,
     { startTime, endTime, day }, // Need to check that its not gonna override the whole document
     {

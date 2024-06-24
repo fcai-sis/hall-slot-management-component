@@ -1,93 +1,75 @@
-import { NextFunction, Request, Response } from "express";
-import { body, validationResult } from "express-validator";
+import * as validator from "express-validator";
 
-import logger from "../../../../core/logger";
+import { validateRequestMiddleware } from "@fcai-sis/shared-middlewares";
+import { DayEnum } from "@fcai-sis/shared-models";
 
-const middlewares = [
-  body("startTime")
+const validateCreateSlotRequestMiddleware = [
+  validator
+    .body("slot.start")
+
     .exists()
-    .withMessage("startTime is required")
-    .isObject()
-    .withMessage("startTime must be an object")
-    .custom((startTime) => {
-      if (startTime.hour == null) {
-        throw new Error("startTime.hour is required");
-      }
-      if (startTime.minute == null) {
-        throw new Error("startTime.minute is required");
-      }
-      if (typeof startTime.hour !== "number") {
-        throw new Error("startTime.hour must be a number");
-      }
-      if (typeof startTime.minute !== "number") {
-        throw new Error("startTime.minute must be a number");
-      }
-      if (startTime.hour < 0 || startTime.hour > 23) {
-        throw new Error("startTime.hour must be a number between 0 and 23");
-      }
-      if (startTime.minute < 0 || startTime.minute > 59) {
-        throw new Error("startTime.minute must be a number between 0 and 59");
-      }
-      return true;
-    }),
+    .withMessage("start is required")
 
-  body("endTime")
-    .exists()
-    .withMessage("endTime is required")
     .isObject()
-    .withMessage("endTime must be an object")
-    .custom((endTime) => {
-      if (endTime.hour == null) {
-        throw new Error("endTime.hour is required");
-      }
-      if (endTime.minute == null) {
-        throw new Error("endTime.minute is required");
-      }
-      if (typeof endTime.hour !== "number") {
-        throw new Error("endTime.hour must be a number");
-      }
-      if (typeof endTime.minute !== "number") {
-        throw new Error("endTime.minute must be a number");
-      }
-      if (endTime.hour < 0 || endTime.hour > 23) {
-        throw new Error("endTime.hour must be a number between 0 and 23");
-      }
-      if (endTime.minute < 0 || endTime.minute > 59) {
-        throw new Error("endTime.minute must be a number between 0 and 59");
-      }
-      return true;
-    }),
-  body("day")
+    .withMessage("start must be an object"),
+
+  validator
+    .body("slot.start.hour")
+
+    .exists()
+    .withMessage("start.hour is required")
+
+    .isInt({ min: 0, max: 23 })
+    .withMessage("start.hour must be a number between 0 and 23"),
+
+  validator
+    .body("slot.start.minute")
+
+    .exists()
+    .withMessage("start.minute is required")
+
+    .isInt({ min: 0, max: 59 })
+    .withMessage("start.minute must be a number between 0 and 59"),
+
+  validator
+    .body("slot.end")
+
+    .exists()
+    .withMessage("end is required")
+
+    .isObject()
+    .withMessage("end must be an object"),
+
+  validator
+    .body("slot.end.hour")
+
+    .exists()
+    .withMessage("end.hour is required")
+
+    .isInt({ min: 0, max: 23 })
+    .withMessage("end.hour must be a number between 0 and 23"),
+
+  validator
+    .body("slot.end.minute")
+
+    .exists()
+    .withMessage("end.minute is required")
+
+    .isInt({ min: 0, max: 59 })
+    .withMessage("end.minute must be a number between 0 and 59"),
+
+  validator
+    .body("slot.day")
+
     .exists()
     .withMessage("day is required")
-    .isInt({ min: 0, max: 6 })
-    .withMessage("day must be a number between 0 and 6"),
 
-  (req: Request, res: Response, next: NextFunction) => {
-    logger.debug(
-      `Validating create slot req body: ${JSON.stringify(req.body)}`
-    );
+    .isIn(DayEnum)
+    .withMessage(
+      `day must be one of the following values: ${DayEnum.join(", ")}`
+    ),
 
-    // If any of the validations above failed, return an error response
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      logger.debug(
-        `Invalid create slot req body provided ${JSON.stringify(
-          errors.array()
-        )}`
-      );
-      return res.status(400).json({
-        error: {
-          message: errors.array()[0].msg,
-        },
-      });
-    }
-
-    // If needed, you can perform additional validations or modifications here
-
-    next();
-  },
+  validateRequestMiddleware,
 ];
 
-const createSlotValidator = middlewares;
-export default createSlotValidator;
+export default validateCreateSlotRequestMiddleware;

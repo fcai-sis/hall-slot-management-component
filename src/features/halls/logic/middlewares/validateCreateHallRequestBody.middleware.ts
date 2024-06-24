@@ -1,54 +1,38 @@
 import * as validator from "express-validator";
-import { NextFunction, Request, Response } from "express";
-
-import logger from "../../../../core/logger";
+import { validateRequestMiddleware } from "@fcai-sis/shared-middlewares";
 
 /**
  * Validates the request body of the create hall endpoint.
  */
-const middlewares = [
+const validateCreateHallRequestMiddleware = [
   validator
-    .body("name")
+    .body("hall.name.en")
+
     .exists()
-    .withMessage("Name is required")
+    .withMessage("English name is required")
+
     .isString()
-    .withMessage("Name must be a string"),
+    .withMessage("English name must be a string"),
 
   validator
-    .body("capacity")
+    .body("hall.name.ar")
+
+    .exists()
+    .withMessage("Arabic name is required")
+
+    .isString()
+    .withMessage("Arabic name must be a string"),
+
+  validator
+    .body("hall.capacity")
+
     .exists()
     .withMessage("Capacity is required")
+
     .isInt({ gt: 0 })
     .withMessage("Capacity must be a positive integer"),
 
-  (req: Request, res: Response, next: NextFunction) => {
-    logger.debug(
-      `Validating create hall req body: ${JSON.stringify(req.body)}`
-    );
-
-    // If any of the validations above failed, return an error response
-    const errors = validator.validationResult(req);
-
-    if (!errors.isEmpty()) {
-      logger.debug(
-        `Validation failed for create hall req body: ${JSON.stringify(
-          req.body
-        )}`
-      );
-
-      return res.status(400).json({
-        error: {
-          message: errors.array()[0].msg,
-        },
-      });
-    }
-
-    // Trim the validated data in the request body
-    req.body.name = req.body.name.trim();
-
-    next();
-  },
+  validateRequestMiddleware,
 ];
 
-const validateCreateHall = middlewares;
-export default validateCreateHall;
+export default validateCreateHallRequestMiddleware;

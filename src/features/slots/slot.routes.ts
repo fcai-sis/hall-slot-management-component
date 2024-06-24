@@ -1,53 +1,37 @@
 import { Router } from "express";
 
+import paginate from "express-paginate";
 import { asyncHandler } from "@fcai-sis/shared-utilities";
-import createSlotsHandler from "./logic/handlers/create.slot.handler";
+import createSlotsHandler from "./logic/handlers/createSlot.handler";
 import getAllSlotsHandler from "./logic/handlers/get.all.slot.handler";
 import getSlotByIdHandler from "./logic/handlers/get.slot.by.id.handler";
-import { paginationQueryParamsMiddleware } from "@fcai-sis/shared-middlewares";
 import updateSlotByIdHandler from "./logic/handlers/update.slot.by.id.handler";
 import deleteSlotByIdHandler from "./logic/handlers/delete.slot.by.id.handler";
 import ensureSlotIdInParamsMiddleware from "./logic/middlewares/EnsureSlotidparam.middleware";
 import updateSlotValidator from "./logic/middlewares/UpdateSlotValidations.middleware";
-import createSlotValidator from "./logic/middlewares/validateCreateSlotRequestBody.middleware";
+import validateCreateSlotRequestMiddleware from "./logic/middlewares/validateCreateSlotRequestBody.middleware";
 
 const slotsRoutes = (router: Router) => {
   /*
    * Create new slot
    **/
   router.post(
-    "/create",
-
-    // Validate example message
-
-    createSlotValidator,
-
-    // Handle example request
+    "/",
+    validateCreateSlotRequestMiddleware,
     asyncHandler(createSlotsHandler)
   );
 
   /*
    * Get all slots
    **/
-  router.get(
-    "/slots",
-
-    // Validate pagination query params
-    paginationQueryParamsMiddleware,
-
-    // Handle example request
-    asyncHandler(getAllSlotsHandler)
-  );
+  router.get("/slots", paginate.middleware(), asyncHandler(getAllSlotsHandler));
 
   /*
    * Get slot by id
    **/
   router.get(
     "/slots/:id",
-
     ensureSlotIdInParamsMiddleware,
-
-    // Handle example request
     asyncHandler(getSlotByIdHandler)
   );
 

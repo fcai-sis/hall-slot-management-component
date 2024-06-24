@@ -1,7 +1,7 @@
 // logic for deleting a slot from the database
 
+import { SlotModel } from "@fcai-sis/shared-models";
 import { Request, Response } from "express";
-import Slot from "../../data/models/slot.model";
 
 /**
  * A handler that deletes a slot document from the database
@@ -10,7 +10,7 @@ import Slot from "../../data/models/slot.model";
 type HandlerRequest = Request<{ id: string }>;
 
 const handler = async (req: HandlerRequest, res: Response) => {
-  const slot = await Slot.findByIdAndDelete(req.params.id);
+  const slot = await SlotModel.findByIdAndDelete(req.params.id);
 
   if (!slot) {
     return res.status(404).json({

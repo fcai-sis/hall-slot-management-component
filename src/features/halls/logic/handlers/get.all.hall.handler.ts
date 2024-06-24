@@ -1,7 +1,7 @@
 // logic for getting all halls from the database
 
+import { HallModel } from "@fcai-sis/shared-models";
 import { Request, Response } from "express";
-import Hall from "../../data/models/halls.model";
 
 /**
  * A handler that creates a new hall document in the database
@@ -13,7 +13,7 @@ const handler = async (req: HandlerRequest, res: Response) => {
   const page = req.context.page;
   const pageSize = req.context.pageSize;
 
-  const halls = await Hall.find()
+  const halls = await HallModel.find()
     .skip((page - 1) * pageSize)
     .limit(pageSize);
 
