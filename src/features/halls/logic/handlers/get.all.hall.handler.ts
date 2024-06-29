@@ -17,12 +17,15 @@ const handler = async (req: HandlerRequest, res: Response) => {
     .skip(Number(skip) ?? 0)
     .exec();
 
+  const totalHalls = await HallModel.countDocuments();
+
   return res.status(200).json({
     halls: halls.map((hall) => ({
       _id: hall._id,
       name: hall.name,
       capacity: hall.capacity,
     })),
+    totalHalls,
   });
 };
 

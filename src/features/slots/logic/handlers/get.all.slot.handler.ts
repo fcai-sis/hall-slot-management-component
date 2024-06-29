@@ -14,6 +14,7 @@ const handler = async (req: HandlerRequest, res: Response) => {
     .limit(limit as unknown as number)
     .skip(Number(skip) ?? 0);
 
+  const totalSlots = await SlotModel.countDocuments();
   return res.status(200).send({
     slots: slots.map((slot) => ({
       _id: slot._id,
@@ -21,6 +22,7 @@ const handler = async (req: HandlerRequest, res: Response) => {
       endTime: slot.endTime,
       day: slot.day,
     })),
+    totalSlots,
   });
 };
 
