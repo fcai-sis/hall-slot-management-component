@@ -8,12 +8,11 @@ import { Request, Response } from "express";
 type HandlerRequest = Request;
 
 const handler = async (req: HandlerRequest, res: Response) => {
-  const page = req.context.page;
-  const pageSize = req.context.pageSize;
+  const { skip, limit } = req.query;
 
   const slots = await SlotModel.find()
-    .skip((page - 1) * pageSize)
-    .limit(pageSize);
+    .limit(limit as unknown as number)
+    .skip(Number(skip) ?? 0);
 
   return res.status(200).send({
     slots: slots.map((slot) => ({

@@ -10,14 +10,14 @@ import { Request, Response } from "express";
 type HandlerRequest = Request;
 
 const handler = async (req: HandlerRequest, res: Response) => {
-  const page = req.context.page;
-  const pageSize = req.context.pageSize;
+  const { limit, skip } = req.query;
 
   const halls = await HallModel.find()
-    .skip((page - 1) * pageSize)
-    .limit(pageSize);
+    .limit(limit as unknown as number)
+    .skip(Number(skip) ?? 0)
+    .exec();
 
-  return res.status(200).send({
+  return res.status(200).json({
     halls: halls.map((hall) => ({
       _id: hall._id,
       name: hall.name,
