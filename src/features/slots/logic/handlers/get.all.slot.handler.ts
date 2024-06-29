@@ -18,8 +18,8 @@ const handler = async (req: HandlerRequest, res: Response) => {
   return res.status(200).send({
     slots: slots.map((slot) => ({
       _id: slot._id,
-      startTime: slot.startTime,
-      endTime: slot.endTime,
+      start: slot.start,
+      end: slot.end,
       day: slot.day,
     })),
     totalSlots,
