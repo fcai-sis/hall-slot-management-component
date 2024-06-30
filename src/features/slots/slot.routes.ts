@@ -1,6 +1,5 @@
 import { Router } from "express";
 
-import paginate from "express-paginate";
 import { asyncHandler } from "@fcai-sis/shared-utilities";
 import createSlotsHandler from "./logic/handlers/createSlot.handler";
 import getAllSlotsHandler from "./logic/handlers/get.all.slot.handler";
@@ -24,13 +23,13 @@ const slotsRoutes = (router: Router) => {
   /*
    * Get all slots
    **/
-  router.get("/slots", paginate.middleware(), asyncHandler(getAllSlotsHandler));
+  router.get("/", asyncHandler(getAllSlotsHandler));
 
   /*
    * Get slot by id
    **/
   router.get(
-    "/slots/:id",
+    "/:id",
     ensureSlotIdInParamsMiddleware,
     asyncHandler(getSlotByIdHandler)
   );
@@ -39,7 +38,7 @@ const slotsRoutes = (router: Router) => {
    * Update slot by id
    **/
   router.patch(
-    "/slots/:id",
+    "/:id",
 
     ensureSlotIdInParamsMiddleware,
 
@@ -53,7 +52,7 @@ const slotsRoutes = (router: Router) => {
    * Delete slot by id
    **/
   router.delete(
-    "/slots/:id",
+    "/:id",
 
     ensureSlotIdInParamsMiddleware,
 
