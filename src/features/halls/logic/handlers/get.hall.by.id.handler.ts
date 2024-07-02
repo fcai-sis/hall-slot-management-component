@@ -14,9 +14,11 @@ const handler = async (req: HandlerRequest, res: Response) => {
 
   if (!hall) {
     return res.status(404).json({
-      error: {
-        message: "Hall not found",
-      },
+      errors: [
+        {
+          message: "Hall not found",
+        },
+      ],
     });
   }
 

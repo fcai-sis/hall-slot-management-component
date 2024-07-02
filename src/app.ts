@@ -7,6 +7,8 @@ import express, { NextFunction, Request, Response } from "express";
 import { isDev } from "./env";
 import logger from "./core/logger";
 import { hallsRouter, slotsRouter } from "./router";
+import mongoose from "mongoose";
+import { ForeignKeyNotFound } from "@fcai-sis/shared-utilities";
 
 // Create Express server
 const app = express();
@@ -61,7 +63,28 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // TODO: Custom error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   logger.error(err.stack);
-  res.status(500).json({ message: "Something broke on our end" });
+  // check the type of error and return the appropriate response
+  if (err instanceof mongoose.Error.ValidationError) {
+    return res.status(400).json({
+      errors: [
+        {
+          message: err.message,
+        },
+      ],
+    });
+  } else if (err instanceof ForeignKeyNotFound) {
+    return res.status(400).json({
+      errors: [
+        {
+          message: err.message,
+          code: err.code,
+        },
+      ],
+    });
+  }
+  res.status(500).json({
+    errors: [{ message: "Something broke on our end" }],
+  });
 });
 
 export default app;

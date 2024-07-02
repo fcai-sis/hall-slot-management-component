@@ -70,9 +70,11 @@ const middlewares = [
         `Invalid update slot req body provided ${JSON.stringify(invalidFields)}`
       );
       return res.status(400).json({
-        error: {
-          message: `Invalid fields provided: ${invalidFields}`,
-        },
+        errors: [
+          {
+            message: `Invalid fields provided: ${invalidFields}`,
+          },
+        ],
       });
     }
 
@@ -84,9 +86,11 @@ const middlewares = [
         )}`
       );
       return res.status(400).json({
-        error: {
-          message: errors.array()[0].msg,
-        },
+        errors: [
+          {
+            message: errors.array()[0].msg,
+          },
+        ],
       });
     }
 

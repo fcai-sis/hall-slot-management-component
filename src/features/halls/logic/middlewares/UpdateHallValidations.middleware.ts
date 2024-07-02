@@ -38,9 +38,11 @@ const middlewares = [
         `Invalid req body provided ${JSON.stringify(errors.array())}`
       );
       return res.status(400).json({
-        error: {
-          message: errors.array()[0].msg,
-        },
+        errors: [
+          {
+            message: errors.array()[0].msg,
+          },
+        ],
       });
     }
 
