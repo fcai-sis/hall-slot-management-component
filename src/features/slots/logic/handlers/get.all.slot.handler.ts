@@ -26,7 +26,11 @@ const handler = async (_: HandlerRequest, res: Response) => {
 
   const timeRanges = slots.reduce((acc: any[], slot: any) => {
     const existingSlot = acc.find(
-      (s) => s.start === slot.start && s.end === slot.end
+      (s) =>
+        s.start.hour === slot.start.hour &&
+        s.end.hour === slot.end.hour &&
+        s.start.minute === slot.start.minute &&
+        s.end.minute === slot.end.minute
     );
     if (!existingSlot) {
       acc.push({
