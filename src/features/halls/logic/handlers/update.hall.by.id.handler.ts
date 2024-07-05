@@ -18,7 +18,10 @@ const handler = async (req: HandlerRequest, res: Response) => {
 
   const hall = await HallModel.findByIdAndUpdate(
     req.params.id,
-    { name, capacity }, // Need to check that its not gonna override the whole document
+    {
+      ...(name && { name }),
+      ...(capacity && { capacity }),
+    },
     {
       new: true,
     }
