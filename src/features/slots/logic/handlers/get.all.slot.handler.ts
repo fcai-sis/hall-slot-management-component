@@ -51,10 +51,14 @@ const handler = async (_: HandlerRequest, res: Response) => {
     return acc;
   }, []);
 
+  const sortedDays = days.sort((a, b) => {
+    return DayEnum.indexOf(a.day) - DayEnum.indexOf(b.day);
+  });
+
   return res.status(200).send({
     slots: slotsByDay,
     timeRanges,
-    days,
+    days: sortedDays,
   });
 };
 

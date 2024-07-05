@@ -25,13 +25,13 @@ const hallsRoutes = (router: Router) => {
   /*
    * Get all halls
    **/
-  router.get("/read", paginate.middleware(), asyncHandler(getAllHallsHandler));
+  router.get("/", paginate.middleware(), asyncHandler(getAllHallsHandler));
 
   /*
    * Get hall by id
    **/
   router.get(
-    "/halls/:id",
+    "/:id",
 
     ensureHallIdInParamsMiddleware,
     // Handle example request
@@ -42,7 +42,7 @@ const hallsRoutes = (router: Router) => {
    * Update hall by id
    **/
   router.patch(
-    "/halls/:id",
+    "/:id",
 
     ensureHallIdInParamsMiddleware,
 
@@ -56,7 +56,7 @@ const hallsRoutes = (router: Router) => {
    * Delete hall by id
    **/
   router.delete(
-    "/halls/:id",
+    "/:id",
 
     ensureHallIdInParamsMiddleware,
 
